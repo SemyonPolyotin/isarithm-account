@@ -1,6 +1,8 @@
 package com.isarithm.account.services;
 
+import com.isarithm.account.domain.Device;
 import com.isarithm.account.domain.User;
+import com.isarithm.account.web.model.DeviceRequest;
 import com.isarithm.account.web.model.UserRequest;
 import org.springframework.data.domain.Page;
 
@@ -15,4 +17,9 @@ public interface UserService {
 	User getUserByEmail(String email);
 	User updateUserById(UUID userId, UserRequest userRequest);
 	void deleteUserById(UUID userId);
+
+	Page<Device> getDevices(UUID userId, Integer page, Integer size);
+	Device createDevice(UUID userId, DeviceRequest deviceRequest);
+	Device updateDevice(UUID userId, UUID deviceId, DeviceRequest deviceRequest);
+	void deleteDevice(UUID userId, UUID deviceId);
 }

@@ -6,14 +6,16 @@ import com.isarithm.account.web.model.UserRequest;
 import com.isarithm.account.web.model.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = UserController.baseUri)
+@RequestMapping(UserController.baseUri)
 public class UserController {
 	static final String baseUri = "/users";
 
@@ -30,9 +32,9 @@ public class UserController {
 									   @RequestParam(value = "username", required = false) String username) {
 		Page<User> users;
 		if (username != null)
-			users = userService.getUsers(page, size);
-		else
 			users = userService.getUsersWithUsername(username, page, size);
+		else
+			users = userService.getUsers(page, size);
 		return users.map(UserResponse::new);
 	}
 
@@ -65,8 +67,11 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "")
 	@ResponseStatus(HttpStatus.CREATED)
-	public UserResponse createUser(@RequestBody UserRequest userRequest) {
-		return new UserResponse(userService.createUser(userRequest));
+	public UserResponse createUser(@RequestBody UserRequest userRequest,
+								   HttpServletResponse response) {
+		User user = userService.createUser(userRequest);
+		response.addHeader(HttpHeaders.LOCATION, baseUri + "/" + user.getId());
+		return new UserResponse();
 	}
 
 	@RequestMapping(method = RequestMethod.PATCH, value = "/{userId}")
