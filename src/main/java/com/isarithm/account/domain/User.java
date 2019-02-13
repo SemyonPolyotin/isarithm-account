@@ -2,7 +2,6 @@ package com.isarithm.account.domain;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,11 +15,6 @@ import java.util.UUID;
 public class User {
 	@Id
 	@Column(name = "users_id")
-//	@GeneratedValue(generator = "uuid2", strategy = GenerationType.IDENTITY)
-//	@GenericGenerator(
-//		name = "uuid2",
-//		strategy = "org.hibernate.id.UUIDGenerator"
-//	)
 	private UUID id;
 
 	@Column(name = "users_username", nullable = false, unique = true)

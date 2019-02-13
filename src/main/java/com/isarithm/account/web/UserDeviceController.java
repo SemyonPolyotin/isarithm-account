@@ -5,6 +5,7 @@ import com.isarithm.account.web.model.DeviceRequest;
 import com.isarithm.account.web.model.DeviceResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -29,6 +30,7 @@ public class UserDeviceController {
 				.map(DeviceResponse::new);
 	}
 
+	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(method = RequestMethod.POST, value = "/{userId}/devices")
 	public DeviceResponse createDevice(@PathVariable("userId") UUID userId,
 									   @RequestBody DeviceRequest deviceRequest) {
@@ -42,6 +44,7 @@ public class UserDeviceController {
 		return new DeviceResponse(userService.updateDevice(userId, deviceId, deviceRequest));
 	}
 
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{userId}/devices/{deviceId}")
 	public void deleteDevice(@PathVariable("userId") UUID userId,
 							 @PathVariable("deviceId") UUID deviceId) {

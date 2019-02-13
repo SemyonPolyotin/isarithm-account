@@ -71,7 +71,7 @@ public class UserController {
 								   HttpServletResponse response) {
 		User user = userService.createUser(userRequest);
 		response.addHeader(HttpHeaders.LOCATION, baseUri + "/" + user.getId());
-		return new UserResponse();
+		return new UserResponse(user);
 	}
 
 	@RequestMapping(method = RequestMethod.PATCH, value = "/{userId}")
