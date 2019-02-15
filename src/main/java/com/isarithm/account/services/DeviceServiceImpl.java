@@ -10,7 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Service
 public class DeviceServiceImpl implements DeviceService {
@@ -29,26 +28,27 @@ public class DeviceServiceImpl implements DeviceService {
 	@Override
 	public Device createDevice(User owner, DeviceRequest deviceRequest) {
 		Device device = new Device()
-				.setModel(deviceRequest.getModel())
+				.setModelId(deviceRequest.getModelId())
 				.setOwner(owner)
+				.setName(deviceRequest.getName())
 				.setRegDate(new Date());
 		return deviceRepository.save(device);
 	}
 
 	@Override
-	public Device getDeviceById(UUID deviceId) {
+	public Device getDeviceById(Integer deviceId) {
 		return deviceRepository.getOne(deviceId);
 	}
 
 	@Override
-	public Device updateDeviceById(UUID deviceId, DeviceRequest deviceRequest) {
+	public Device updateDeviceById(Integer deviceId, DeviceRequest deviceRequest) {
 		Device device = this.getDeviceById(deviceId);
-		// TODO: update logic
+		if (deviceRequest.getName() != null) device.setName(deviceRequest.getName());
 		return deviceRepository.save(device);
 	}
 
 	@Override
-	public void deleteDeviceById(UUID deviceId) {
+	public void deleteDeviceById(Integer deviceId) {
 		deviceRepository.deleteById(deviceId);
 	}
 }

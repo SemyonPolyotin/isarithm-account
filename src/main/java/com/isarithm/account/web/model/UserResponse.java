@@ -14,11 +14,15 @@ public class UserResponse {
 	private String username;
 	private String email;
 	private Date regDate;
+	private String avatar;
+	private String bio;
 
 	public UserResponse(User user) {
 		this.id = user.getId();
 		this.username = user.getUsername();
 		this.email = user.getEmail();
 		this.regDate = user.getRegDate();
+		this.avatar = user.getAvatar();
+		this.bio = user.getBio();
 	}
 }

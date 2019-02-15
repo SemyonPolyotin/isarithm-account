@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(DeviceController.baseUri)
 public class DeviceController {
-	public static final String baseUri = "/devices";
+	static final String baseUri = "/devices";
 
 	private final DeviceService deviceService;
 

@@ -20,6 +20,6 @@ public interface UserService {
 
 	Page<Device> getDevices(UUID userId, Integer page, Integer size);
 	Device createDevice(UUID userId, DeviceRequest deviceRequest);
-	Device updateDevice(UUID userId, UUID deviceId, DeviceRequest deviceRequest);
-	void deleteDevice(UUID userId, UUID deviceId);
+	Device updateDevice(UUID userId, Integer deviceId, DeviceRequest deviceRequest);
+	void deleteDevice(UUID userId, Integer deviceId);
 }

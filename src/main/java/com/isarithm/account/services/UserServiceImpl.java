@@ -44,7 +44,9 @@ public class UserServiceImpl implements UserService {
 				.setId(userRequest.getId())
 				.setUsername(userRequest.getUsername())
 				.setEmail(userRequest.getEmail())
-				.setRegDate(new Date());
+				.setRegDate(new Date())
+				.setAvatar(userRequest.getAvatar())
+				.setBio(userRequest.getBio());
 		return userRepository.save(user);
 	}
 
@@ -69,7 +71,8 @@ public class UserServiceImpl implements UserService {
 		User user = this.getUserById(userId);
 		if (userRequest.getUsername() != null) user.setUsername(userRequest.getUsername());
 		if (userRequest.getEmail() != null) user.setEmail(userRequest.getEmail());
-		if (userRequest.getRegDate() != null) user.setRegDate(userRequest.getRegDate());
+		if (userRequest.getAvatar() != null) user.setAvatar(userRequest.getAvatar());
+		if (userRequest.getBio() != null) user.setBio(userRequest.getBio());
 		return userRepository.save(user);
 	}
 
@@ -92,16 +95,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Device updateDevice(UUID userId, UUID deviceId, DeviceRequest deviceRequest) {
-		// TODO: check ownership
-		return deviceService.updateDeviceById(deviceId, deviceRequest);
+	public Device updateDevice(UUID userId, Integer deviceId, DeviceRequest deviceRequest) {
+		Device device = deviceService.getDeviceById(deviceId);
+		if (device.getOwner().getId() == userId)
+			return deviceService.updateDeviceById(deviceId, deviceRequest);
+		return null;
 	}
 
 	@Override
-	public void deleteDevice(UUID userId, UUID deviceId) {
-		// TODO: check ownership
-//		if (deviceService.getDeviceById(deviceId).getOwner().getId() != userId)
-//			throw new HttpClientErrorException.BadRequest("");
-		deviceService.deleteDeviceById(deviceId);
+	public void deleteDevice(UUID userId, Integer deviceId) {
+		Device device = deviceService.getDeviceById(deviceId);
+		if (device.getOwner().getId() == userId)
+			deviceService.deleteDeviceById(deviceId);
 	}
 }

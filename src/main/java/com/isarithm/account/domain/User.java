@@ -26,6 +26,12 @@ public class User {
 	@Column(name = "users_reg_date")
 	private Date regDate;
 
+	@Column(name = "users_avatar")
+	private String avatar;
+
+	@Column(name = "users_bio")
+	private String bio;
+
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Device> devices;
 }

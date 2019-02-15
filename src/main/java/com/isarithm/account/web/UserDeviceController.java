@@ -39,7 +39,7 @@ public class UserDeviceController {
 
 	@RequestMapping(method = RequestMethod.PATCH, value = "/{userId}/devices/{deviceId}")
 	public DeviceResponse updateDevice(@PathVariable("userId") UUID userId,
-									   @PathVariable("deviceId") UUID deviceId,
+									   @PathVariable("deviceId") Integer deviceId,
 									   @RequestBody DeviceRequest deviceRequest) {
 		return new DeviceResponse(userService.updateDevice(userId, deviceId, deviceRequest));
 	}
@@ -47,7 +47,7 @@ public class UserDeviceController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{userId}/devices/{deviceId}")
 	public void deleteDevice(@PathVariable("userId") UUID userId,
-							 @PathVariable("deviceId") UUID deviceId) {
+							 @PathVariable("deviceId") Integer deviceId) {
 		userService.deleteDevice(userId, deviceId);
 	}
 }

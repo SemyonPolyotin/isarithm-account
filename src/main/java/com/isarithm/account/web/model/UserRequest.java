@@ -11,4 +11,6 @@ public class UserRequest {
 	private String username;
 	private String email;
 	private Date regDate;
+	private String avatar;
+	private String bio;
 }

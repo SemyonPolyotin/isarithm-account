@@ -8,15 +8,17 @@ import java.util.UUID;
 
 @Data
 public class DeviceResponse {
-	private UUID id;
-	private String model;
+	private Integer id;
+	private UUID modelId;
 	private UUID ownerId;
 	private Date regDate;
+	private String name;
 
 	public DeviceResponse(Device device) {
 		this.id = device.getId();
-		this.model = device.getModel();
+		this.modelId = device.getModelId();
 		this.ownerId = device.getOwner().getId();
 		this.regDate = device.getRegDate();
+		this.name = device.getName();
 	}
 }
